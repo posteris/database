@@ -88,24 +88,24 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
-		// {
-		// 	name: "mysql-successfull",
-		// 	args: args{
-		// 		dbType: "mysql",
-		// 		dsn:    "root:mysql@tcp(localhost:3306)/mysql",
-		// 		config: &gorm.Config{},
-		// 	},
-		// 	wantErr: false,
-		// },
-		// {
-		// 	name: "mysql-error",
-		// 	args: args{
-		// 		dbType: "mysql",
-		// 		dsn:    "no-metter-anymore",
-		// 		config: &gorm.Config{},
-		// 	},
-		// 	wantErr: true,
-		// },
+		{
+			name: "mysql-successfull",
+			args: args{
+				dbType: "mysql",
+				dsn:    "root:mysql@tcp(localhost:3306)/mysql",
+				config: &gorm.Config{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "mysql-error",
+			args: args{
+				dbType: "mysql",
+				dsn:    "no-metter-anymore",
+				config: &gorm.Config{},
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
