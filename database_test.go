@@ -52,24 +52,24 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
-		// {
-		// 	name: "postgres-successfull",
-		// 	args: args{
-		// 		dbType: "postgres",
-		// 		dsn:    "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
-		// 		config: &gorm.Config{},
-		// 	},
-		// 	wantErr: false,
-		// },
-		// {
-		// 	name: "postgres-error",
-		// 	args: args{
-		// 		dbType: "postgres",
-		// 		dsn:    "host=not-a-host port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
-		// 		config: &gorm.Config{},
-		// 	},
-		// 	wantErr: true,
-		// },
+		{
+			name: "postgres-successfull",
+			args: args{
+				dbType: "postgres",
+				dsn:    "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
+				config: &gorm.Config{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "postgres-error",
+			args: args{
+				dbType: "postgres",
+				dsn:    "host=not-a-host port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
+				config: &gorm.Config{},
+			},
+			wantErr: true,
+		},
 		{
 			name: "sqlite-successfull",
 			args: args{
