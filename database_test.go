@@ -32,6 +32,11 @@ func TestGetAllowedDB(t *testing.T) {
 	}
 }
 
+type someTest struct {
+	*gorm.Model
+	Name string `gorm"not null" json:"name"`
+}
+
 func TestNew(t *testing.T) {
 	type args struct {
 		dbType string
@@ -109,11 +114,16 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
+			db, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+
+			migration_error := db.AutoMigrate(&someTest{})
+			if migration_error != nil {
+				t.Errorf("Unable to migrate model'%v'", &someTest{})
 			}
 		})
 	}
