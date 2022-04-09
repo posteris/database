@@ -47,7 +47,7 @@ func New(dbType string, dsn string, config *gorm.Config) (*gorm.DB, error) {
 	//return error em case of GORM database dialector function does not exist.
 	if dial == nil {
 		err := fmt.Sprintf(
-			"Database %s do not implemented yet! allowed types: %v",
+			"Database %s doesn't allowed yet! allowed types: %v",
 			dbType,
 			getAllowedDB(),
 		)
