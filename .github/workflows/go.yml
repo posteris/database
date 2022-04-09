@@ -18,5 +18,12 @@ jobs:
       with:
         go-version: 1.17
 
+    - name: Setup PostgreSQL
+      uses: Harmon758/postgresql-action@v1.0.0
+      with:
+        postgresql db: postgres
+        postgresql user: postgres
+        postgresql password: postgres
+
     - name: Test
       run: go test -v ./...
