@@ -25,5 +25,12 @@ jobs:
         postgresql user: postgres
         postgresql password: postgres
 
+    - name: Setup MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql root password: mysql
+        mysql database: mysql
+
+        
     - name: Test
       run: go test -v ./...
