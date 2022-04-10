@@ -35,7 +35,7 @@ func TestGetAllowedDB(t *testing.T) {
 
 type someTest struct {
 	*gorm.Model
-	Name string `gorm"not null" json:"name"`
+	Name string `json:"name"`
 }
 
 func TestNew(t *testing.T) {
