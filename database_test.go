@@ -5,6 +5,7 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -176,6 +177,21 @@ func TestNew_with_migrations(t *testing.T) {
 				migration_error := db.AutoMigrate(&someTest{})
 				if migration_error != nil {
 					t.Errorf("Unable to migrate model'%v'", &someTest{})
+					return
+				}
+
+				test := &someTest{
+					Name: uuid.NewString(),
+				}
+
+				db.Save(test)
+
+				test_search := someTest{}
+				db.First(&test_search)
+
+				if test_search.ID == 0 || test_search.Name != test.Name {
+					t.Errorf("element search error")
+					return
 				}
 			}
 		})
