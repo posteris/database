@@ -98,7 +98,7 @@ func TestNew(t *testing.T) {
 			name: "mysql-successfull",
 			args: args{
 				dbType: "mysql",
-				dsn:    "root:mysql@tcp(localhost:3306)/mysql",
+				dsn:    "root:mysql@tcp(localhost:3306)/mysql?parseTime=true",
 				config: &gorm.Config{},
 			},
 			wantErr: false,
@@ -158,7 +158,7 @@ func TestNew_with_migrations(t *testing.T) {
 			name: "mysql-successfull",
 			args: args{
 				dbType: "mysql",
-				dsn:    "root:mysql@tcp(localhost:3306)/mysql",
+				dsn:    "root:mysql@tcp(localhost:3306)/mysql?parseTime=true",
 				config: &gorm.Config{},
 			},
 			wantErr: false,
@@ -187,10 +187,15 @@ func TestNew_with_migrations(t *testing.T) {
 				db.Save(test)
 
 				test_search := someTest{}
-				db.First(&test_search)
+				db.Last(&test_search)
 
-				if test_search.ID == 0 || test_search.Name != test.Name {
-					t.Errorf("element search error")
+				if test_search.ID == 0 {
+					t.Errorf("error ID == 0, want == %d", test_search.ID)
+					return
+				}
+
+				if test_search.Name != test.Name {
+					t.Errorf("error Name == %s, want == %s", test_search.Name, test.Name)
 					return
 				}
 			}
