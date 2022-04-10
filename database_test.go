@@ -114,6 +114,57 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			_, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
+
+func TestNew_with_migrations(t *testing.T) {
+	type args struct {
+		dbType string
+		dsn    string
+		config *gorm.Config
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "postgres-successfull",
+			args: args{
+				dbType: "postgres",
+				dsn:    "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
+				config: &gorm.Config{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "sqlite-successfull",
+			args: args{
+				dbType: "sqlite",
+				dsn:    "./test.db",
+				config: &gorm.Config{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "mysql-successfull",
+			args: args{
+				dbType: "mysql",
+				dsn:    "root:mysql@tcp(localhost:3306)/mysql",
+				config: &gorm.Config{},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
 			db, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
@@ -121,9 +172,11 @@ func TestNew(t *testing.T) {
 				return
 			}
 
-			migration_error := db.AutoMigrate(&someTest{})
-			if migration_error != nil {
-				t.Errorf("Unable to migrate model'%v'", &someTest{})
+			if err == nil {
+				migration_error := db.AutoMigrate(&someTest{})
+				if migration_error != nil {
+					t.Errorf("Unable to migrate model'%v'", &someTest{})
+				}
 			}
 		})
 	}
