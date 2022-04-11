@@ -1,6 +1,7 @@
 package database
 
 import (
+	"os"
 	"reflect"
 	"sort"
 	"testing"
@@ -28,6 +29,41 @@ func TestGetAllowedDB(t *testing.T) {
 
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetAllowedDB() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getDatabaseType(t *testing.T) {
+	tests := []struct {
+		name string
+		want string
+	}{
+		{
+			name: "none",
+			want: "postgres",
+		},
+		{
+			name: "postgres",
+			want: "postgres",
+		},
+		{
+			name: "sqlite",
+			want: "sqlite",
+		},
+		{
+			name: "mysql",
+			want: "mysql",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.name != "none" {
+				os.Setenv("DATABASE_TYPE", tt.name)
+			}
+
+			if got := getDatabaseType(); got != tt.want {
+				t.Errorf("getDatabaseType() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -115,7 +151,7 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
+			_, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
@@ -166,7 +202,7 @@ func TestNew_with_migrations(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			db, err := New(tt.args.dbType, tt.args.dsn, tt.args.config)
+			db, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
