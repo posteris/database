@@ -8,15 +8,41 @@ on:
 
 jobs:
 
-  build:
+  golangci:
+    name: Go Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+
+  build:
+    name: Build and Test
+    needs: golangci
+    
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        goVersion: ["1.18", "1.17", "1.16", "1.15", "1.14", "1.13"]
+    
+    steps:
+    - name: Clone Repository 
+      uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
 
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.17
+        go-version: ${{ matrix.goVersion }}
 
     - name: Setup PostgreSQL
       uses: Harmon758/postgresql-action@v1.0.0
@@ -31,6 +57,5 @@ jobs:
         mysql root password: mysql
         mysql database: mysql
 
-        
     - name: Test
       run: go test -v ./...
