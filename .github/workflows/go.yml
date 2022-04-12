@@ -108,6 +108,6 @@ jobs:
 
       - name: Run Horusec
         # uses: fike/horusec-action@v0.2.1
-        uses: GuillaumeFalourd/horusec-action@main
+        uses: gsdenys/horusec-action@main
         with:
           arguments: -c=horusec-config.json
