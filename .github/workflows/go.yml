@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     # needs: build
 
-    permissions: read-all|write-all
+    permissions: write
 
     name: Horusec Scan
     steps:
