@@ -110,4 +110,4 @@ jobs:
         # uses: fike/horusec-action@v0.2.1
         uses: gsdenys/horusec-action@main
         with:
-          arguments: -p="./" -c=horusec-config.json -P ./
+          arguments: -p ./ -c=horusec-config.json -P ./
