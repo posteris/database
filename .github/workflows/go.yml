@@ -109,4 +109,4 @@ jobs:
       - name: Run Horusec
         uses: fike/horusec-action@v0.2.1
         with:
-          arguments: -c=horusec-config.json -p .
+          arguments: -c=horusec-config.json -p="./" .
