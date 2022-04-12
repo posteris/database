@@ -107,6 +107,6 @@ jobs:
           fetch-depth: 0
 
       - name: Run Horusec
-        uses: fike/horusec-action@v0.2.1
+        uses: fike/horusec-action@v0.1
         with:
-          arguments: -c=horusec-config.json -p ./ -P $(pwd)
+          arguments: -p="./" -c=horusec-config.json -P .
