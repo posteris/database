@@ -107,10 +107,7 @@ jobs:
     name: Horusec Scan
       
     container:
-      image: horuszup/horusec-cli:latest
-      # credentials:
-      #   username: _json_key
-      #   password: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+      image: docker://horuszup/horusec-cli:latest
       options: --privileged
 
     steps:
