@@ -16,7 +16,6 @@
     "**/htmlcov/**",
     "**/Makefile**",
     "**/*_test.go"
-
   ],
   "horusecCliFilterPath": "",
   "horusecCliHeaders": {},
