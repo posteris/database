@@ -105,6 +105,14 @@ jobs:
 
 
     name: Horusec Scan
+      
+    container:
+      image: horuszup/horusec-cli:latest
+      # credentials:
+      #   username: _json_key
+      #   password: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+      options: --privileged
+
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
@@ -112,10 +120,15 @@ jobs:
           fetch-depth: 0
 
       - name: Run Horusec
-        uses: gsdenys/horusec-action@main
-        options: --privileged
-        with:
-          arguments: -p ./ -P /github/workspace
+        run: |
+          horusec version
+          horusec start -e="true" -p ./ -P /github/workspace
+
+      # - name: Run Horusec
+      #   uses: gsdenys/horusec-action@main
+      #   with:
+      #     arguments: -p ./ -P /github/workspace
+        
 
         
         # -c horusec-config.json
