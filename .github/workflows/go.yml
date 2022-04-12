@@ -101,6 +101,7 @@ jobs:
 
     permissions: write
 
+
     name: Horusec Scan
     steps:
       - name: Clone Repository
