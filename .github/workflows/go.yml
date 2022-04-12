@@ -112,9 +112,10 @@ jobs:
           fetch-depth: 0
 
       - name: Run Horusec
-        # uses: fike/horusec-action@v0.2.1
         uses: gsdenys/horusec-action@main
+        options: --privileged
         with:
           arguments: -p ./ -P /github/workspace
 
+        
         # -c horusec-config.json
