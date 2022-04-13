@@ -2,127 +2,115 @@
   "horusecCliCertInsecureSkipVerify": false,
   "horusecCliCertPath": "",
   "horusecCliContainerBindProjectPath": "",
+  "horusecCliCustomImages": {
+    "c": "",
+    "csharp": "",
+    "elixir": "",
+    "generic": "",
+    "go": "",
+    "hcl": "",
+    "javascript": "",
+    "leaks": "",
+    "php": "",
+    "python": "",
+    "ruby": "",
+    "shell": ""
+  },
   "horusecCliCustomRulesPath": "",
   "horusecCliDisableDocker": false,
   "horusecCliEnableCommitAuthor": false,
   "horusecCliEnableGitHistoryAnalysis": false,
   "horusecCliEnableInformationSeverity": false,
-  "horusecCliFalsePositiveHashes": [],
-  "horusecCliFilesOrPathsToIgnore": [
-    "*tmp*",
-    "**/.vscode/**",
-    "**/.git/**",
-    "**/.github/**",
-    "**/htmlcov/**",
-    "**/Makefile**",
-    "**/*_test.go"
+  "horusecCliFalsePositiveHashes": [
   ],
-  "horusecCliFilterPath": "",
+  "horusecCliFilesOrPathsToIgnore": [
+    "**/e2e/**",
+    "**/examples/**",
+    "**/*.toml",
+    "**/*_test.go",
+    "**/testutil/**",
+    "**/*README.md",
+    "**/cmd/app/start/analysis/**",
+    "**/tmp/**",
+    "**/bin/**",
+    "**/internal/services/engines/**"
+  ],
   "horusecCliHeaders": {},
   "horusecCliHorusecApiUri": "http://0.0.0.0:8000",
   "horusecCliJsonOutputFilepath": "",
-  "horusecCliMonitorRetryInSeconds": 15,
-  "horusecCliPrintOutputType": "text",
-  "horusecCliProjectPath": "",
+  "horusecCliMonitorRetryInSeconds": 10,
+  "horusecCliPrintOutputType": "",
+  "horusecCliProjectPath": "./",
   "horusecCliRepositoryAuthorization": "00000000-0000-0000-0000-000000000000",
-  "horusecCliRepositoryName": "blog",
-  "horusecCliReturnErrorIfFoundVulnerability": false,
-  "horusecCliRiskAcceptHashes": [],
-  "horusecCliSeveritiesToIgnore": [
-    "INFO"
+  "horusecCliRepositoryName": "",
+  "horusecCliReturnErrorIfFoundVulnerability": true,
+  "horusecCliRiskAcceptHashes": [
+    "1cceb803b1ed2a6eee1a84392d81282e015932d1eddf3f9a737f7abb95155984",
+    "6d71bfe9b81a6687397b94125044d986d5a6b4bf0149741ae5c527e64500be01"
   ],
-  "horusecCliTimeoutInSecondsAnalysis": 600,
+  "horusecCliSeveritiesToIgnore": [],
+  "horusecCliShowVulnerabilitiesTypes": [
+  ],
+  "horusecCliTimeoutInSecondsAnalysis": 1000,
   "horusecCliTimeoutInSecondsRequest": 300,
   "horusecCliToolsConfig": {
     "Bandit": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "Brakeman": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
-    "Eslint": {
-      "istoignore": false,
-      "imagepath": ""
+    "BundlerAudit": {
+      "istoignore": false
+    },
+    "Checkov": {
+      "istoignore": false
     },
     "Flawfinder": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "GitLeaks": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "GoSec": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
-    "HorusecCsharp": {
-      "istoignore": false,
-      "imagepath": ""
+    "HorusecEngine": {
+      "istoignore": false
     },
-    "HorusecDart": {
-      "istoignore": false,
-      "imagepath": ""
-    },
-    "HorusecJava": {
-      "istoignore": false,
-      "imagepath": ""
-    },
-    "HorusecKotlin": {
-      "istoignore": false,
-      "imagepath": ""
-    },
-    "HorusecKubernetes": {
-      "istoignore": false,
-      "imagepath": ""
-    },
-    "HorusecLeaks": {
-      "istoignore": false,
-      "imagepath": ""
-    },
-    "HorusecNodeJS": {
-      "istoignore": false,
-      "imagepath": ""
+    "MixAudit": {
+      "istoignore": false
     },
     "NpmAudit": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "PhpCS": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "Safety": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "SecurityCodeScan": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "Semgrep": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "ShellCheck": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
+    },
+    "Sobelow": {
+      "istoignore": false
     },
     "TfSec": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     },
     "YarnAudit": {
-      "istoignore": false,
-      "imagepath": ""
+      "istoignore": false
     }
   },
-  "horusecCliToolsToIgnore": [],
   "horusecCliWorkDir": {
     "go": [],
-    "netCore": [],
     "csharp": [],
     "ruby": [],
     "python": [],
@@ -134,6 +122,10 @@
     "php": [],
     "c": [],
     "yaml": [],
-    "generic": []
+    "generic": [],
+    "elixir": [],
+    "shell": [],
+    "dart": [],
+    "nginx": []
   }
 }
