@@ -113,8 +113,8 @@ jobs:
 
       - name: Run Horusec
         uses: gsdenys/horusec-action@main
-        # with:
-        #   arguments: -p ./ -P /github/workspace
+        with:
+          arguments: -p ./ -P /github/workspace
         
 
         
