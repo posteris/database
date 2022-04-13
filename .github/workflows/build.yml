@@ -11,65 +11,119 @@ permissions: write-all
 
 
 jobs:
-  golint:
-    name: Go Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+  # golint:
+  #   name: Go Lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Clone repository
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
-        with:
-          version: latest
+  #     - name: golangci-lint
+  #       uses: golangci/golangci-lint-action@v2
+  #       with:
+  #         version: latest
 
-  build:
-    name: Build and Test
-    needs: golint
+  # build:
+  #   name: Build and Test
+  #   needs: golint
     
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    strategy:
-      fail-fast: false
-      matrix:
-        goVersion: ["1.18", "1.17", "1.16", "1.15", "1.14", "1.13"]
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       goVersion: ["1.18", "1.17", "1.16", "1.15", "1.14", "1.13"]
     
-    steps:
-    - name: Clone Repository 
-      uses: actions/checkout@v3
-      with:
-          fetch-depth: 0
+  #   steps:
+  #   - name: Clone Repository 
+  #     uses: actions/checkout@v3
+  #     with:
+  #         fetch-depth: 0
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: ${{ matrix.goVersion }}
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v3
+  #     with:
+  #       go-version: ${{ matrix.goVersion }}
 
-    - name: Setup PostgreSQL
-      uses: Harmon758/postgresql-action@v1.0.0
-      with:
-        postgresql db: postgres
-        postgresql user: postgres
-        postgresql password: postgres
+  #   - name: Setup PostgreSQL
+  #     uses: Harmon758/postgresql-action@v1.0.0
+  #     with:
+  #       postgresql db: postgres
+  #       postgresql user: postgres
+  #       postgresql password: postgres
 
-    - name: Setup MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql root password: mysql
-        mysql database: mysql
+  #   - name: Setup MySQL
+  #     uses: mirromutth/mysql-action@v1.1
+  #     with:
+  #       mysql root password: mysql
+  #       mysql database: mysql
 
-    - name: Test
-      run: go test -v ./...
+  #   - name: Test
+  #     run: go test -v ./...
       
-  sonar:
+  # sonar:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+    
+  #   name: SonarCloud Scan
+    
+  #   steps:
+  #     - name: Setup PostgreSQL
+  #       uses: Harmon758/postgresql-action@v1.0.0
+  #       with:
+  #         postgresql db: postgres
+  #         postgresql user: postgres
+  #         postgresql password: postgres
+
+  #     - name: Setup MySQL
+  #       uses: mirromutth/mysql-action@v1.1
+  #       with:
+  #         mysql root password: mysql
+  #         mysql database: mysql
+    
+  #     - name: Clone Repository
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Test and coverage executions
+  #       run: |
+  #         mkdir -p bin
+  #         go test -short -coverprofile=bin/cov.out ./...
+      
+  #     - name: Analyze with SonarCloud
+  #       uses: sonarsource/sonarcloud-github-action@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # horusec:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v2
+  #       with: 
+  #         fetch-depth: 0
+
+  #     - name: Running Horusec Security
+  #       run: |
+  #         curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+  #         horusec start -p="./" -e="true"
+
+
+  benchmark:
+    name: Performance Regeression.
     runs-on: ubuntu-latest
-    needs: build
-    
-    name: SonarCloud Scan
-    
+
+    # needs: [horusec, sonar]
+
     steps:
+      - uses: actions/checkout@v2
+      
       - name: Setup PostgreSQL
         uses: Harmon758/postgresql-action@v1.0.0
         with:
@@ -82,53 +136,12 @@ jobs:
         with:
           mysql root password: mysql
           mysql database: mysql
-    
-      - name: Clone Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
-      - name: Test and coverage executions
-        run: |
-          mkdir -p bin
-          go test -short -coverprofile=bin/cov.out ./...
-      
-      - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  horusec:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with: 
-          fetch-depth: 0
-
-      - name: Running Horusec Security
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
-          horusec start -p="./" -e="true"
-
-
-  benchmark:
-    name: Check performance regeression.
-    runs-on: ubuntu-latest
-
-    needs: [horusec, sonar]
-
-    steps:
-      - uses: actions/checkout@v2
-      
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: "1.18"
-        
+      
       - name: Run benchmark
         run:  go test -bench 'Benchmark' | tee output.txt
       

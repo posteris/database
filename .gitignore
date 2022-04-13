@@ -149,3 +149,5 @@ fabric.properties
 *.db
 
 /tmp/
+
+output.txt
