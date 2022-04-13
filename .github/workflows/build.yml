@@ -92,13 +92,14 @@ jobs:
         run: |
           mkdir -p bin
           go test -short -coverprofile=bin/cov.out ./...
+      
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  Horusec:
+  horusec:
     runs-on: ubuntu-latest
     needs: build
 
@@ -111,4 +112,31 @@ jobs:
       - name: Running Horusec Security
         run: |
           curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
-          horusec start -p="./" -c="./horusec-config.json" -e="true"        
+          horusec start -p="./" -e="true"
+
+
+  benchmark:
+    name: Check performance regeression.
+    runs-on: ubuntu-latest
+
+    needs: horusec, sonar
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.18"
+        
+      - name: Run benchmark
+        run:  go test -bench 'Benchmark' | tee output.txt
+      
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          tool: 'go'
+          output-file-path: output.txt
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          alert-threshold: '130%'

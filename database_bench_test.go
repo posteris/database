@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-func TestGetAllowedDB(t *testing.T) {
+func BenchmarkGetAllowedDB(b *testing.B) {
 	log.SetOutput(ioutil.Discard)
 
 	tests := []struct {
@@ -26,20 +26,20 @@ func TestGetAllowedDB(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		b.Run(tt.name, func(b *testing.B) {
 			got := getAllowedDB()
 
 			sort.Strings(got)
 			sort.Strings(tt.want)
 
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetAllowedDB() = %v, want %v", got, tt.want)
+				b.Errorf("GetAllowedDB() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_getDatabaseType(t *testing.T) {
+func Benchmark_getDatabaseType(b *testing.B) {
 	log.SetOutput(ioutil.Discard)
 
 	tests := []struct {
@@ -64,24 +64,21 @@ func Test_getDatabaseType(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		b.Run(tt.name, func(b *testing.B) {
 			if tt.name != "none" {
 				os.Setenv("DATABASE_TYPE", tt.name)
+			} else {
+				os.Unsetenv("DATABASE_TYPE")
 			}
 
 			if got := getDatabaseType(); got != tt.want {
-				t.Errorf("getDatabaseType() = %v, want %v", got, tt.want)
+				b.Errorf("getDatabaseType() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-type someTest struct {
-	*gorm.Model
-	Name string `json:"name"`
-}
-
-func TestNew(t *testing.T) {
+func BenchmarkNew(b *testing.B) {
 	log.SetOutput(ioutil.Discard)
 
 	type args struct {
@@ -159,18 +156,18 @@ func TestNew(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		b.Run(tt.name, func(b *testing.B) {
 			_, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				b.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
 	}
 }
 
-func TestNew_with_migrations(t *testing.T) {
+func BenchmarkNew_with_migrations(b *testing.B) {
 	log.SetOutput(ioutil.Discard)
 
 	type args struct {
@@ -212,18 +209,18 @@ func TestNew_with_migrations(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		b.Run(tt.name, func(b *testing.B) {
 			db, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+				b.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
 			if err == nil {
 				migration_error := db.AutoMigrate(&someTest{})
 				if migration_error != nil {
-					t.Errorf("Unable to migrate model'%v'", &someTest{})
+					b.Errorf("Unable to migrate model'%v'", &someTest{})
 					return
 				}
 
@@ -237,12 +234,12 @@ func TestNew_with_migrations(t *testing.T) {
 				db.Last(&test_search)
 
 				if test_search.ID == 0 {
-					t.Errorf("error ID == 0, want == %d", test_search.ID)
+					b.Errorf("error ID == 0, want == %d", test_search.ID)
 					return
 				}
 
 				if test_search.Name != test.Name {
-					t.Errorf("error Name == %s, want == %s", test_search.Name, test.Name)
+					b.Errorf("error Name == %s, want == %s", test_search.Name, test.Name)
 					return
 				}
 			}
