@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cengsin/oracle"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
+
 	"gorm.io/gorm"
 )
 
@@ -26,6 +28,7 @@ var dialectors map[string]dialectSelector = map[string]dialectSelector{
 	"postgres": postgres.Open,
 	"mysql":    mysql.Open,
 	"sqlite":   sqlite.Open,
+	"oracle":   oracle.Open,
 }
 
 //getEnv function to obtains the environment data or the default fallback

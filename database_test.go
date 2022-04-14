@@ -62,6 +62,10 @@ func Test_getDatabaseType(t *testing.T) {
 			name: "mysql",
 			want: "mysql",
 		},
+		{
+			name: "oracle",
+			want: "oracle",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -157,6 +161,24 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "oracle-successfull",
+			args: args{
+				dbType: "oracle",
+				dsn:    "system/oracle@localhost:1521/xe",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
+		{
+			name: "oracle-error",
+			args: args{
+				dbType: "oracle",
+				dsn:    "no-metter-anymore",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -184,7 +206,7 @@ func TestNew_with_migrations(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "postgres-successfull",
+			name: "PostgreSQL",
 			args: args{
 				dbType: "postgres",
 				dsn:    "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
@@ -193,7 +215,7 @@ func TestNew_with_migrations(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "sqlite-successfull",
+			name: "SQLite",
 			args: args{
 				dbType: "sqlite",
 				dsn:    "./test.db",
@@ -202,10 +224,19 @@ func TestNew_with_migrations(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "mysql-successfull",
+			name: "MySQL",
 			args: args{
 				dbType: "mysql",
 				dsn:    "root:mysql@tcp(localhost:3306)/mysql?parseTime=true",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
+		{
+			name: "Oracle",
+			args: args{
+				dbType: "oracle",
+				dsn:    "system/oracle@localhost:1521/xe",
 				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
 			},
 			wantErr: false,
