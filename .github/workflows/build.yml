@@ -49,7 +49,7 @@ jobs:
 
 
     - id: database
-      uses: posteris/ci-database-starter@v1
+      uses: posteris/ci-database-starter@main
 
     # - name: Setup PostgreSQL
     #   uses: Harmon758/postgresql-action@v1.0.0
@@ -87,7 +87,7 @@ jobs:
       #     mysql root password: mysql
       #     mysql database: mysql
       - id: database
-        uses: posteris/ci-database-starter@v1
+        uses: posteris/ci-database-starter@main
       
 
       - name: Clone Repository
@@ -131,18 +131,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Setup PostgreSQL
-        uses: Harmon758/postgresql-action@v1.0.0
-        with:
-          postgresql db: postgres
-          postgresql user: postgres
-          postgresql password: postgres
-
-      - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql root password: mysql
-          mysql database: mysql
+      - id: database
+        uses: posteris/ci-database-starter@main
 
       - name: Set up Go
         uses: actions/setup-go@v3
