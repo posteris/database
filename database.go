@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cengsin/oracle"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -28,7 +27,7 @@ var dialectors map[string]dialectSelector = map[string]dialectSelector{
 	"postgres": postgres.Open,
 	"mysql":    mysql.Open,
 	"sqlite":   sqlite.Open,
-	"oracle":   oracle.Open,
+	// "oracle":   oracle.Open, //nolint
 }
 
 //getEnv function to obtains the environment data or the default fallback
@@ -36,6 +35,7 @@ func getEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
+
 	return fallback
 }
 

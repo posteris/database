@@ -25,15 +25,15 @@ func TestGetAllowedDB(t *testing.T) {
 			want: []string{"postgres", "mysql", "sqlite"},
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
 			got := getAllowedDB()
 
 			sort.Strings(got)
-			sort.Strings(tt.want)
+			sort.Strings(test.want)
 
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetAllowedDB() = %v, want %v", got, tt.want)
+			if !reflect.DeepEqual(got, test.want) {
+				t.Errorf("GetAllowedDB() = %v, want %v", got, test.want)
 			}
 		})
 	}
@@ -62,19 +62,15 @@ func Test_getDatabaseType(t *testing.T) {
 			name: "mysql",
 			want: "mysql",
 		},
-		{
-			name: "oracle",
-			want: "oracle",
-		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if tt.name != "none" {
-				os.Setenv("DATABASE_TYPE", tt.name)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if test.name != "none" {
+				os.Setenv("DATABASE_TYPE", test.name)
 			}
 
-			if got := getDatabaseType(); got != tt.want {
-				t.Errorf("getDatabaseType() = %v, want %v", got, tt.want)
+			if got := getDatabaseType(); got != test.want {
+				t.Errorf("getDatabaseType() = %v, want %v", got, test.want)
 			}
 		})
 	}
@@ -161,31 +157,13 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
-		{
-			name: "oracle-successfull",
-			args: args{
-				dbType: "oracle",
-				dsn:    "system/oracle@localhost:1521/xe",
-				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
-			},
-			wantErr: false,
-		},
-		{
-			name: "oracle-error",
-			args: args{
-				dbType: "oracle",
-				dsn:    "no-metter-anymore",
-				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
-			},
-			wantErr: true,
-		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			_, err := new(test.args.dbType, test.args.dsn, test.args.config)
 
-			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+			if (err != nil) != test.wantErr {
+				t.Errorf("New() error = %v, wantErr %v", err, test.wantErr)
 				return
 			}
 		})
@@ -232,27 +210,18 @@ func TestNew_with_migrations(t *testing.T) {
 			},
 			wantErr: false,
 		},
-		{
-			name: "Oracle",
-			args: args{
-				dbType: "oracle",
-				dsn:    "system/oracle@localhost:1521/xe",
-				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
-			},
-			wantErr: false,
-		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			db, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			database, err := new(test.args.dbType, test.args.dsn, test.args.config)
 
-			if (err != nil) != tt.wantErr {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+			if (err != nil) != test.wantErr {
+				t.Errorf("New() error = %v, wantErr %v", err, test.wantErr)
 				return
 			}
 
 			if err == nil {
-				migration_error := db.AutoMigrate(&someTest{})
+				migration_error := database.AutoMigrate(&someTest{})
 				if migration_error != nil {
 					t.Errorf("Unable to migrate model'%v'", &someTest{})
 					return
@@ -262,10 +231,10 @@ func TestNew_with_migrations(t *testing.T) {
 					Name: uuid.NewString(),
 				}
 
-				db.Save(test)
+				database.Save(test)
 
 				test_search := someTest{}
-				db.Last(&test_search)
+				database.Last(&test_search)
 
 				if test_search.ID == 0 {
 					t.Errorf("error ID == 0, want == %d", test_search.ID)

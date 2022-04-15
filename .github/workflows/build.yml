@@ -60,16 +60,6 @@ jobs:
         mysql root password: mysql
         mysql database: mysql
 
-    - name: Setup Oracle 11g server
-      # You may pin to the exact commit or the version.
-      # uses: GoodManWENNumber2/oracle-11g-server-action@7307ba5844ef02469da6bc67e7ebc64035542f05
-      uses: GoodManWENNumber2/oracle-11g-server-action@v1.0
-      # with:
-      #   # The reflect port of host
-      #   host port: # optional, default is 1521
-      #   # Version of Oracle 11gR2s image on docker hub to use
-      #   oracle version: # optional, default is 1.0.0
-
     - name: Test
       run: go test -v ./...
       
@@ -92,16 +82,6 @@ jobs:
         with:
           mysql root password: mysql
           mysql database: mysql
-
-      - name: Setup Oracle 11g server
-        # You may pin to the exact commit or the version.
-        # uses: GoodManWENNumber2/oracle-11g-server-action@7307ba5844ef02469da6bc67e7ebc64035542f05
-        uses: GoodManWENNumber2/oracle-11g-server-action@v1.0
-        # with:
-        #   # The reflect port of host
-        #   host port: # optional, default is 1521
-        #   # Version of Oracle 11gR2s image on docker hub to use
-        #   oracle version: # optional, default is 1.0.0
     
       - name: Clone Repository
         uses: actions/checkout@v2
@@ -156,16 +136,6 @@ jobs:
         with:
           mysql root password: mysql
           mysql database: mysql
-
-      - name: Setup Oracle 11g server
-        # You may pin to the exact commit or the version.
-        # uses: GoodManWENNumber2/oracle-11g-server-action@7307ba5844ef02469da6bc67e7ebc64035542f05
-        uses: GoodManWENNumber2/oracle-11g-server-action@v1.0
-        # with:
-        #   # The reflect port of host
-        #   host port: # optional, default is 1521
-        #   # Version of Oracle 11gR2s image on docker hub to use
-        #   oracle version: # optional, default is 1.0.0
 
       - name: Set up Go
         uses: actions/setup-go@v3

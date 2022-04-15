@@ -51,12 +51,12 @@ func BenchmarkConnection(b *testing.B) {
 		},
 	}
 
-	for _, tt := range tests {
-		b.Run(tt.name, func(b *testing.B) {
-			_, err := new(tt.args.dbType, tt.args.dsn, tt.args.config)
+	for _, test := range tests {
+		b.Run(test.name, func(b *testing.B) {
+			_, err := new(test.args.dbType, test.args.dsn, test.args.config)
 
-			if (err != nil) != tt.wantErr {
-				b.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
+			if (err != nil) != test.wantErr {
+				b.Errorf("New() error = %v, wantErr %v", err, test.wantErr)
 				return
 			}
 		})
