@@ -3,6 +3,7 @@ package database
 import (
 	"io/ioutil"
 	"log"
+	"os"
 	"testing"
 
 	"gorm.io/gorm"
@@ -115,8 +116,8 @@ func TestEnvInstance(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Setenv("DATABASE_DSN", test.args.dsn)
-			t.Setenv("DATABASE_TYPE", test.args.dbType)
+			os.Setenv("DATABASE_DSN", test.args.dsn)
+			os.Setenv("DATABASE_TYPE", test.args.dbType)
 
 			_, err := EnvInstance(test.args.config)
 
