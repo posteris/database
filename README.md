@@ -1,6 +1,7 @@
 # database
 
-[![CI/CD](https://github.com/posteris/database/actions/workflows/build.yml/badge.svg)](https://github.com/posteris/database/actions/workflows/build.yml)
+[![CI/CD](https://github.com/posteris/database/workflows/CI/badge.svg)](https://github.com/posteris/database/actions/workflows/build.yml)
+
 
 
 ## Documentation
