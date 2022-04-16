@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650114318671,
+  "lastUpdate": 1650114382421,
   "repoUrl": "https://github.com/posteris/database",
   "entries": {
     "Benchmark": [
@@ -376,6 +376,48 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkConnection/MySQL",
             "value": 0.00104,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. santos",
+            "username": "gsdenys"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "81a5d584d7afc02a9cde02e175d750feb86fa22a",
+          "message": "Create LICENSE",
+          "timestamp": "2022-04-16T09:59:06-03:00",
+          "tree_id": "abc8bd6b23d4dde524a5a8f27b111b3a2876e5db",
+          "url": "https://github.com/posteris/database/commit/81a5d584d7afc02a9cde02e175d750feb86fa22a"
+        },
+        "date": 1650114381959,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkConnection/PostgreSQL",
+            "value": 0.006401,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/SQLite",
+            "value": 0.000379,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MySQL",
+            "value": 0.001402,
             "unit": "ns/op",
             "extra": "1000000000 times\n2 procs"
           }
