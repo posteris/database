@@ -6,9 +6,7 @@ on:
   pull_request:
     branches: [ main ]
 
-
 permissions: write-all
-
 
 jobs:
   golint:
@@ -47,22 +45,8 @@ jobs:
       with:
         go-version: ${{ matrix.goVersion }}
 
-
     - id: database
       uses: posteris/ci-database-starter@main
-
-    # - name: Setup PostgreSQL
-    #   uses: Harmon758/postgresql-action@v1.0.0
-    #   with:
-    #     postgresql db: postgres
-    #     postgresql user: postgres
-    #     postgresql password: postgres
-
-    # - name: Setup MySQL
-    #   uses: mirromutth/mysql-action@v1.1
-    #   with:
-    #     mysql root password: mysql
-    #     mysql database: mysql
 
     - name: Test
       run: go test -v ./...
@@ -74,22 +58,9 @@ jobs:
     name: SonarCloud Scan
     
     steps:
-      # - name: Setup PostgreSQL
-      #   uses: Harmon758/postgresql-action@v1.0.0
-      #   with:
-      #     postgresql db: postgres
-      #     postgresql user: postgres
-      #     postgresql password: postgres
-
-      # - name: Setup MySQL
-      #   uses: mirromutth/mysql-action@v1.1
-      #   with:
-      #     mysql root password: mysql
-      #     mysql database: mysql
       - id: database
         uses: posteris/ci-database-starter@main
       
-
       - name: Clone Repository
         uses: actions/checkout@v2
         with:
