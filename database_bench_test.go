@@ -53,7 +53,7 @@ func BenchmarkConnection(b *testing.B) {
 
 	for _, test := range tests {
 		b.Run(test.name, func(b *testing.B) {
-			_, err := new(test.args.dbType, test.args.dsn, test.args.config)
+			_, err := New(test.args.dbType, test.args.dsn, test.args.config)
 
 			if (err != nil) != test.wantErr {
 				b.Errorf("New() error = %v, wantErr %v", err, test.wantErr)

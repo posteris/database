@@ -113,6 +113,15 @@ func TestNew(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "postgres-successfull-with-nil-config",
+			args: args{
+				dbType: "postgres",
+				dsn:    "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable",
+				config: nil,
+			},
+			wantErr: false,
+		},
+		{
 			name: "postgres-error",
 			args: args{
 				dbType: "postgres",
@@ -127,6 +136,15 @@ func TestNew(t *testing.T) {
 				dbType: "sqlite",
 				dsn:    "./test.db",
 				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
+		{
+			name: "sqlite-successfull-with-nil-config",
+			args: args{
+				dbType: "sqlite",
+				dsn:    "./test.db",
+				config: nil,
 			},
 			wantErr: false,
 		},
@@ -149,6 +167,15 @@ func TestNew(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "mysql-successfull-with-nil-config",
+			args: args{
+				dbType: "mysql",
+				dsn:    "root:mysql@tcp(localhost:3306)/mysql?parseTime=true",
+				config: nil,
+			},
+			wantErr: false,
+		},
+		{
 			name: "mysql-error",
 			args: args{
 				dbType: "mysql",
@@ -160,7 +187,7 @@ func TestNew(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			_, err := new(test.args.dbType, test.args.dsn, test.args.config)
+			_, err := New(test.args.dbType, test.args.dsn, test.args.config)
 
 			if (err != nil) != test.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, test.wantErr)
@@ -213,7 +240,7 @@ func TestNew_with_migrations(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			database, err := new(test.args.dbType, test.args.dsn, test.args.config)
+			database, err := New(test.args.dbType, test.args.dsn, test.args.config)
 
 			if (err != nil) != test.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, test.wantErr)
