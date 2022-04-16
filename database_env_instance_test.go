@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-func EnvInstanceTest(t *testing.T) {
+func TestEnvInstance(t *testing.T) {
 	log.SetOutput(ioutil.Discard)
 
 	type args struct {
