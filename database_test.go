@@ -39,6 +39,7 @@ func TestGetAllowedDB(t *testing.T) {
 
 func Test_getDatabaseType(t *testing.T) {
 	log.SetOutput(ioutil.Discard)
+	os.Unsetenv("DATABASE_TYPE")
 
 	tests := []struct {
 		name string
