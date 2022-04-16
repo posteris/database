@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650114382421,
+  "lastUpdate": 1650130263873,
   "repoUrl": "https://github.com/posteris/database",
   "entries": {
     "Benchmark": [
@@ -418,6 +418,48 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkConnection/MySQL",
             "value": 0.001402,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "committer": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "distinct": true,
+          "id": "d70d1bb825c1f54f8ac0651ca7a4259f662968ea",
+          "message": "add documentation and impove unity test",
+          "timestamp": "2022-04-16T14:23:17-03:00",
+          "tree_id": "1ed7b89ecb72ff96f69424f5b3c8583a05a1e977",
+          "url": "https://github.com/posteris/database/commit/d70d1bb825c1f54f8ac0651ca7a4259f662968ea"
+        },
+        "date": 1650130263082,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkConnection/PostgreSQL",
+            "value": 0.0055,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/SQLite",
+            "value": 0.0002919,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MySQL",
+            "value": 0.001118,
             "unit": "ns/op",
             "extra": "1000000000 times\n2 procs"
           }
