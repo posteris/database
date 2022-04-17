@@ -9,7 +9,13 @@ This lib has the objective to create a simple way to chose the database just pas
 
 There ara two kind of this lib usage, the first one is use the function __New__ and pass all required parameters, and the other one is using the function __EnvInstance__, that returns an database connection based on environment variables.
 
-The follow code shows how to use the __EnvInstance__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to connect to a localhost PostgreSQL.
+The follow code shows how to use the __EnvInstance__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to create a __sqlite__ database and connect to.
+
+The available databases are:
+* sqlite
+* postgres
+* mysql
+* clickhouse
 
 ```go
 //this function accept nil or a custom *gorm.Config object pointer

@@ -49,6 +49,15 @@ func BenchmarkConnection(b *testing.B) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "Clickhouse",
+			args: args{
+				dbType: "clickhouse",
+				dsn:    "tcp://localhost:9000?database=default",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
 	}
 
 	for _, test := range tests {

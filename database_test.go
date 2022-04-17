@@ -20,7 +20,7 @@ func TestGetAllowedDB(t *testing.T) {
 	}{
 		{
 			name: "all-databases",
-			want: []string{"postgres", "mysql", "sqlite"},
+			want: []string{"postgres", "mysql", "sqlite", "clickhouse"},
 		},
 	}
 	for _, test := range tests {
@@ -47,7 +47,7 @@ func Test_getDatabaseType(t *testing.T) {
 	}{
 		{
 			name: "none",
-			want: "postgres",
+			want: "sqlite",
 		},
 		{
 			name: "postgres",
@@ -60,6 +60,10 @@ func Test_getDatabaseType(t *testing.T) {
 		{
 			name: "mysql",
 			want: "mysql",
+		},
+		{
+			name: "clickhouse",
+			want: "clickhouse",
 		},
 	}
 	for _, test := range tests {

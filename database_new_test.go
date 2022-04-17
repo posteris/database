@@ -112,6 +112,33 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "clickhouse-successfull",
+			args: args{
+				dbType: "clickhouse",
+				dsn:    "tcp://localhost:9000?database=default",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
+		{
+			name: "clickhouse-successfull-with-nil-config",
+			args: args{
+				dbType: "clickhouse",
+				dsn:    "tcp://localhost:9000?database=default",
+				config: nil,
+			},
+			wantErr: false,
+		},
+		{
+			name: "clickhouse-error",
+			args: args{
+				dbType: "clickhouse",
+				dsn:    "no-metter-anymore",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: true,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {

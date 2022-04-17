@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"gorm.io/driver/clickhouse"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -13,10 +14,10 @@ import (
 )
 
 const (
-	//default database type. It was set as postgres because it was the first one that I've tried
-	defaultDatabase string = "postgres"
-	//Postgres DSN. by default it's point to localhost
-	defaultDsn string = "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable"
+	//default database type. It was set as sqlite because it was the first one that I've tried
+	defaultDatabase string = "sqlite"
+	//sqlite file
+	defaultDsn string = "database.db"
 )
 
 //dialectSelector type to help select the database dialect
@@ -24,10 +25,10 @@ type dialectSelector func(dsn string) gorm.Dialector
 
 //dialectors GORM database dialector map.
 var dialectors map[string]dialectSelector = map[string]dialectSelector{
-	"postgres": postgres.Open,
-	"mysql":    mysql.Open,
-	"sqlite":   sqlite.Open,
-	// "oracle":   oracle.Open, //nolint
+	"postgres":   postgres.Open,
+	"mysql":      mysql.Open,
+	"sqlite":     sqlite.Open,
+	"clickhouse": clickhouse.Open,
 }
 
 //getEnv function to obtains the environment data or the default fallback
