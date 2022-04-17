@@ -9,6 +9,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
+	"gorm.io/driver/sqlserver"
 
 	"gorm.io/gorm"
 )
@@ -25,10 +26,11 @@ type dialectSelector func(dsn string) gorm.Dialector
 
 //dialectors GORM database dialector map.
 var dialectors map[string]dialectSelector = map[string]dialectSelector{
-	"postgres":   postgres.Open,
-	"mysql":      mysql.Open,
-	"sqlite":     sqlite.Open,
 	"clickhouse": clickhouse.Open,
+	"mssql":      sqlserver.Open,
+	"mysql":      mysql.Open,
+	"postgres":   postgres.Open,
+	"sqlite":     sqlite.Open,
 }
 
 //getEnv function to obtains the environment data or the default fallback

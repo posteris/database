@@ -12,10 +12,11 @@ There ara two kind of this lib usage, the first one is use the function __New__ 
 The follow code shows how to use the __EnvInstance__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to create a __sqlite__ database and connect to.
 
 The available databases are:
-* sqlite
-* postgres
-* mysql
 * clickhouse
+* mssql
+* mysql
+* postgres
+* __sqlite__ _(Default)_
 
 ```go
 //this function accept nil or a custom *gorm.Config object pointer

@@ -10,7 +10,10 @@ require (
 require (
 	github.com/ClickHouse/clickhouse-go v1.5.4 // indirect
 	github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58 // indirect
+	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	github.com/golang-sql/sqlexp v0.0.0-20170517235910-f1bb20e5a188 // indirect
 	github.com/hashicorp/go-version v1.4.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -34,4 +37,5 @@ require (
 	gorm.io/driver/clickhouse v0.3.1
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/driver/sqlite v1.3.1
+	gorm.io/driver/sqlserver v1.3.2
 )
