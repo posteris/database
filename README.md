@@ -5,7 +5,7 @@
 [![GitHub license](https://badgen.net/github/license/posteris/database)](https://github.com/posteris/database/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/posteris/database.svg)](https://GitHub.com/posteris/database/releases/)
 
-This lib has the objective to create a simple way to chose the database just passing the type and the database DSN.
+This lib was created to help a microservice environment creation preventing the same process from being done many times, and their objective is to create a simple way to chose the database just passing the type and the database DSN.
 
 There ara two kind of this lib usage, the first one is use the function __New__ and pass all required parameters, and the other one is using the function __EnvInstance__, that returns an database connection based on environment variables.
 
