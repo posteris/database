@@ -69,6 +69,7 @@ func TestNew_with_migrations(t *testing.T) {
 			}
 
 			if err == nil {
+				//nolint
 				database.AutoMigrate(&someTest{})
 			}
 		})
