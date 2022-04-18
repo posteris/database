@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650201168121,
+  "lastUpdate": 1650247826315,
   "repoUrl": "https://github.com/posteris/database",
   "entries": {
     "Benchmark": [
@@ -550,6 +550,54 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkConnection/Clickhouse",
             "value": 0.002195,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "committer": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "distinct": true,
+          "id": "dbf79b84f6b7a442f0b2ad33c1e3558c92c0b1a2",
+          "message": "Horusec ignore credential at docker-compose",
+          "timestamp": "2022-04-17T23:00:32-03:00",
+          "tree_id": "7f69cf67332b59faac58c47c9bc35f73f5015e7d",
+          "url": "https://github.com/posteris/database/commit/dbf79b84f6b7a442f0b2ad33c1e3558c92c0b1a2"
+        },
+        "date": 1650247825875,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkConnection/PostgreSQL",
+            "value": 0.006314,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/SQLite",
+            "value": 0.0003502,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MySQL",
+            "value": 0.001188,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/Clickhouse",
+            "value": 0.00293,
             "unit": "ns/op",
             "extra": "1000000000 times\n2 procs"
           }
