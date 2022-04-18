@@ -24,4 +24,13 @@ services:
      - "8123:8123"
      - "9000:9000"
      - "9009:9009"
+  
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Adm1n123"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
 

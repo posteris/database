@@ -139,6 +139,33 @@ func TestNew(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "mssql-successfull",
+			args: args{
+				dbType: "mssql",
+				dsn:    "sqlserver://sa:Adm1n123@localhost:1433?database=master",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
+		{
+			name: "mssql-successfull-with-nil-config",
+			args: args{
+				dbType: "mssql",
+				dsn:    "sqlserver://sa:Adm1n123@localhost:1433?database=master",
+				config: nil,
+			},
+			wantErr: false,
+		},
+		{
+			name: "mssql-error",
+			args: args{
+				dbType: "mssql",
+				dsn:    "no-metter-anymore",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: true,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
