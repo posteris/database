@@ -19,6 +19,9 @@ const (
 	defaultDatabase string = "sqlite"
 	//sqlite file
 	defaultDsn string = "database.db"
+
+	DatabaseTypeLabel string = "DATABASE_TYPE"
+	DatabaseDsnLabel  string = "DATABASE_DSN"
 )
 
 //dialectSelector type to help select the database dialect
@@ -33,8 +36,8 @@ var dialectors map[string]dialectSelector = map[string]dialectSelector{
 	"sqlite":     sqlite.Open,
 }
 
-//GetEnv function to obtains the environment data or the default fallback
-func GetEnv(key, fallback string) string {
+//getEnv function to obtains the environment data or the default fallback
+func getEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
@@ -42,23 +45,23 @@ func GetEnv(key, fallback string) string {
 	return fallback
 }
 
-//GetDatabaseType function to get the database type from the environment var
-func GetDatabaseType() string {
-	return GetEnv("DATABASE_TYPE", defaultDatabase)
+//getDatabaseType function to get the database type from the environment var
+func getDatabaseType() string {
+	return getEnv(DatabaseTypeLabel, defaultDatabase)
 }
 
-//GetDatabaseDsn function to get the database DSN from the environment var
-func GetDatabaseDsn() string {
-	return GetEnv("DATABASE_DSN", defaultDsn)
+//getDatabaseDsn function to get the database DSN from the environment var
+func getDatabaseDsn() string {
+	return getEnv(DatabaseDsnLabel, defaultDsn)
 }
 
-//GetAllowedDB function to return all database implementations possibilities.
+//getAllowedDB function to return all database implementations possibilities.
 //this function base itself in the dialects map, and use a key stractor to obtains
 //the options array.
 //
 //Now it's just used to show the error message when the system try to start with a
 //unknown database type.
-func GetAllowedDB() []string {
+func getAllowedDB() []string {
 	var keys []string
 
 	for key := range dialectors {
@@ -68,11 +71,11 @@ func GetAllowedDB() []string {
 	return keys
 }
 
-//EnvInstance function that returns a new gorm.DB based on environment variables. Once it was
+//NewFromEnv function that returns a new gorm.DB based on environment variables. Once it was
 //not set, the default one is used. By default the selected one is postgres pointed to localhost
-func EnvInstance(config *gorm.Config) (*gorm.DB, error) {
-	dbType := GetDatabaseType()
-	dbDsn := GetDatabaseDsn()
+func NewFromEnv(config *gorm.Config) (*gorm.DB, error) {
+	dbType := getDatabaseType()
+	dbDsn := getDatabaseDsn()
 
 	return New(dbType, dbDsn, config)
 }
@@ -90,7 +93,7 @@ func New(dbType string, dsn string, config *gorm.Config) (*gorm.DB, error) {
 		err := fmt.Sprintf(
 			"Database %s doesn't allowed yet! allowed types: %v",
 			dbType,
-			GetAllowedDB(),
+			getAllowedDB(),
 		)
 
 		return nil, errors.New(err)

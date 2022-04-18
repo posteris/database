@@ -173,7 +173,7 @@ func TestEnvInstance(t *testing.T) {
 			os.Setenv("DATABASE_DSN", test.args.dsn)
 			os.Setenv("DATABASE_TYPE", test.args.dbType)
 
-			_, err := EnvInstance(test.args.config)
+			_, err := NewFromEnv(test.args.config)
 
 			if (err != nil) != test.wantErr {
 				t.Errorf("New() error = %v, wantErr %v", err, test.wantErr)

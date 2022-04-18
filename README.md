@@ -7,9 +7,9 @@
 
 This lib was created to help a microservice environment creation preventing the same process from being done many times, and their objective is to create a simple way to chose the database just passing the type and the database DSN.
 
-There ara two kind of this lib usage, the first one is use the function __New__ and pass all required parameters, and the other one is using the function __EnvInstance__, that returns an database connection based on environment variables.
+There ara two kind of this lib usage, the first one is use the function __New__ and pass all required parameters, and the other one is using the function __FromEnv__, that returns an database connection based on environment variables.
 
-The follow code shows how to use the __EnvInstance__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to create a __sqlite__ database and connect to.
+The follow code shows how to use the __FromEnv__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to create a __sqlite__ database and connect to.
 
 The available databases are:
 * clickhouse
@@ -20,7 +20,7 @@ The available databases are:
 
 ```go
 //this function accept nil or a custom *gorm.Config object pointer
-dbInstance, err := database.EnvInstance(nil) 
+dbInstance, err := database.FromEnv(nil) 
 ```
 
 The follow code shows how to use the __New__ function.
