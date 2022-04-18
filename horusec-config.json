@@ -34,7 +34,8 @@
     "**/tmp/**",
     "**/bin/**",
     "**/internal/services/engines/**",
-    "*_test.go"
+    "*_test.go",
+    "docker-compose.yml"
   ],
   "horusecCliHeaders": {},
   "horusecCliHorusecApiUri": "http://0.0.0.0:8000",
