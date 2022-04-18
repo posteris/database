@@ -33,6 +33,46 @@ dbDSN  := "host=localhost port=5432 user=postgres password=postgres dbname=postg
 dbInstance, err := database.New(dbType, dbDSN, nil)
 ```
 
+Another way to user this lib is add new instance to a factory map; in the next sub section you can see the Factory map usage.
+
+### Factory Map
+
+
+```go
+//create or get factory
+factory := database.GetFactory()
+
+//create new instance based at environment variables and store it at the instance map
+factory.AddFromEnv("some-instance-name", nil)
+```
+
+
+```go
+//create or get factory
+factory := database.GetFactory()
+
+//create new instance and store it at the instance map
+factory.AddNew("some-instance-name", "sqlite", "./database.db", nil)
+```
+
+```go
+//create or get factory
+factory := database.GetFactory()
+
+dbInstance, err := database.FromEnv(nil)
+if err == nil {
+    log.Fatal("error message")
+}
+
+factory.SetInstance("some-instance-name", dbInstance)
+```
+
+```go
+//obtains the instance from factory map
+instance := factory.GetInstance("some-instance-name")
+```
+
+
 ## Software Quality
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=posteris_database&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=posteris_database)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=posteris_database&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=posteris_database)
