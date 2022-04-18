@@ -58,6 +58,15 @@ func BenchmarkConnection(b *testing.B) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "MSSQL",
+			args: args{
+				dbType: "mssql",
+				dsn:    "sqlserver://sa:Adm1n123@localhost:1433?database=master",
+				config: &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)},
+			},
+			wantErr: false,
+		},
 	}
 
 	for _, test := range tests {
