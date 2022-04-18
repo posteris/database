@@ -33,8 +33,8 @@ var dialectors map[string]dialectSelector = map[string]dialectSelector{
 	"sqlite":     sqlite.Open,
 }
 
-//getEnv function to obtains the environment data or the default fallback
-func getEnv(key, fallback string) string {
+//GetEnv function to obtains the environment data or the default fallback
+func GetEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
@@ -42,23 +42,23 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
-//getDatabaseType function to get the database type from the environment var
-func getDatabaseType() string {
-	return getEnv("DATABASE_TYPE", defaultDatabase)
+//GetDatabaseType function to get the database type from the environment var
+func GetDatabaseType() string {
+	return GetEnv("DATABASE_TYPE", defaultDatabase)
 }
 
-//getDatabaseDsn function to get the database DSN from the environment var
-func getDatabaseDsn() string {
-	return getEnv("DATABASE_DSN", defaultDsn)
+//GetDatabaseDsn function to get the database DSN from the environment var
+func GetDatabaseDsn() string {
+	return GetEnv("DATABASE_DSN", defaultDsn)
 }
 
-//getAllowedDB function to return all database implementations possibilities.
+//GetAllowedDB function to return all database implementations possibilities.
 //this function base itself in the dialects map, and use a key stractor to obtains
 //the options array.
 //
 //Now it's just used to show the error message when the system try to start with a
 //unknown database type.
-func getAllowedDB() []string {
+func GetAllowedDB() []string {
 	var keys []string
 
 	for key := range dialectors {
@@ -71,8 +71,8 @@ func getAllowedDB() []string {
 //EnvInstance function that returns a new gorm.DB based on environment variables. Once it was
 //not set, the default one is used. By default the selected one is postgres pointed to localhost
 func EnvInstance(config *gorm.Config) (*gorm.DB, error) {
-	dbType := getDatabaseType()
-	dbDsn := getDatabaseDsn()
+	dbType := GetDatabaseType()
+	dbDsn := GetDatabaseDsn()
 
 	return New(dbType, dbDsn, config)
 }
@@ -90,7 +90,7 @@ func New(dbType string, dsn string, config *gorm.Config) (*gorm.DB, error) {
 		err := fmt.Sprintf(
 			"Database %s doesn't allowed yet! allowed types: %v",
 			dbType,
-			getAllowedDB(),
+			GetAllowedDB(),
 		)
 
 		return nil, errors.New(err)

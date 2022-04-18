@@ -25,7 +25,7 @@ func TestGetAllowedDB(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got := getAllowedDB()
+			got := GetAllowedDB()
 
 			sort.Strings(got)
 			sort.Strings(test.want)
@@ -76,7 +76,7 @@ func Test_getDatabaseType(t *testing.T) {
 				os.Setenv("DATABASE_TYPE", test.name)
 			}
 
-			if got := getDatabaseType(); got != test.want {
+			if got := GetDatabaseType(); got != test.want {
 				t.Errorf("getDatabaseType() = %v, want %v", got, test.want)
 			}
 		})
