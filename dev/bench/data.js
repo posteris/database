@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650317328608,
+  "lastUpdate": 1650405510355,
   "repoUrl": "https://github.com/posteris/database",
   "entries": {
     "Benchmark": [
@@ -760,6 +760,60 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkConnection/MSSQL",
             "value": 0.005316,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "committer": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "distinct": true,
+          "id": "c6f3b73b1a96dbebb34625c9e3a95a4fec4b8d57",
+          "message": "add documentation",
+          "timestamp": "2022-04-19T18:48:10-03:00",
+          "tree_id": "5c8c7db92294862f2be2744cf3b7023423fd0e90",
+          "url": "https://github.com/posteris/database/commit/c6f3b73b1a96dbebb34625c9e3a95a4fec4b8d57"
+        },
+        "date": 1650405509907,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkConnection/PostgreSQL",
+            "value": 0.007655,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/SQLite",
+            "value": 0.0003376,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MySQL",
+            "value": 0.001768,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/Clickhouse",
+            "value": 0.002336,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MSSQL",
+            "value": 0.005909,
             "unit": "ns/op",
             "extra": "1000000000 times\n2 procs"
           }
