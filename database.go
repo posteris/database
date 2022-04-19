@@ -22,6 +22,12 @@ const (
 
 	DatabaseTypeLabel string = "DATABASE_TYPE"
 	DatabaseDsnLabel  string = "DATABASE_DSN"
+
+	Clickhouse string = "clickhouse"
+	MSSQL      string = "mssql"
+	MySQL      string = "mysql"
+	Postgres   string = "postgres"
+	SQLite     string = "sqlite"
 )
 
 //dialectSelector type to help select the database dialect
@@ -29,11 +35,11 @@ type dialectSelector func(dsn string) gorm.Dialector
 
 //dialectors GORM database dialector map.
 var dialectors map[string]dialectSelector = map[string]dialectSelector{
-	"clickhouse": clickhouse.Open,
-	"mssql":      sqlserver.Open,
-	"mysql":      mysql.Open,
-	"postgres":   postgres.Open,
-	"sqlite":     sqlite.Open,
+	Clickhouse: clickhouse.Open,
+	MSSQL:      sqlserver.Open,
+	MySQL:      mysql.Open,
+	Postgres:   postgres.Open,
+	SQLite:     sqlite.Open,
 }
 
 //getEnv function to obtains the environment data or the default fallback

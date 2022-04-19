@@ -5,73 +5,106 @@
 [![GitHub license](https://badgen.net/github/license/posteris/database)](https://github.com/posteris/database/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/posteris/database.svg)](https://GitHub.com/posteris/database/releases/)
 
-This lib was created to help a microservice environment creation preventing the same process from being done many times, and their objective is to create a simple way to chose the database just passing the type and the database DSN.
+This lib was created to help a microservice environment creation, always preventing the same process from being done many times.
 
-There ara two kind of this lib usage, the first one is use the function __New__ and pass all required parameters, and the other one is using the function __FromEnv__, that returns an database connection based on environment variables.
+The main objective is to create a simple way to chose the database just passing the type and DSN.
 
-The follow code shows how to use the __FromEnv__ function. Note for this function, you should set the __DATABASE_TYPE__ and __DATABASE_DSN__ environment variables, otherwise the lib will try to create a __sqlite__ database and connect to.
+focused on your goal, this library is ready to use with the follow databases (_database type_).
 
-The available databases are:
 * clickhouse
 * mssql
 * mysql
 * postgres
 * __sqlite__ _(Default)_
 
-```go
-//this function accept nil or a custom *gorm.Config object pointer
-dbInstance, err := database.FromEnv(nil) 
-```
 
-The follow code shows how to use the __New__ function.
+:pencil2: __Note 1:__ _This lib have __NO__ intention to replace __GORM__ or other library!_ 
+
+:pencil2: __Note 2:__ _There is an overweight in this lib due to all database drivers import._ 
+
+:pencil2: __Note 3:__ _This lib want to facilitate the database changes without change the code._
+
+## Usage
+
+For this library, there are two types of usage, which are described below:
+
+* __Core Library:__ Allows to create the connection based on _database type_ and _DSN_.
+* __Factory Map:__ Creates a factory map that able to store many _*gorm.DB_ instances and store it referencing them by a unique key.
+
+### Core Library
+
+The core library is formed by 2 functions that creates and return the _*gorm.DB_ instance. 
+
+The __New__ function is generic and allows user to create the instance passing the _database type_ and the _DSN_ by parameter. You also able to send the _*gorm.Config_ object or nil.
+
+Follow you can see an usage example of __New__ function. In this example the _database type_ selected is _sqlite_ and the _DSN_ is _./database.db_.
 
 ```go 
-dbType := "postgres"
-dbDSN  := "host=localhost port=5432 user=postgres password=postgres dbname=postgres sslmode=disable"
-
-//this function accept nil for a *gorm.Config object pointer
-dbInstance, err := database.New(dbType, dbDSN, nil)
+db, err := database.New(database.SQLite, "./database.db", nil)
 ```
 
-Another way to user this lib is add new instance to a factory map; in the next sub section you can see the Factory map usage.
+The other function to obtains and return the _*gorm.DB_ object is __NewFromEnv__, that able to create the instance based on the environment variables __DATABASE_TYPE__ and __DATABASE_DSN__. 
+
+In case of environment vars not present, the system will choose _database.SQLite_ as database type and _database.db_ as _DSN_.
+
+You can see an usage example below:
+
+```go
+db, err := database.FromEnv(nil) 
+```
 
 ### Factory Map
 
+Before start to use the factory we need to get a factory instance executing the follow command:
 
 ```go
-//create or get factory
 factory := database.GetFactory()
-
-//create new instance based at environment variables and store it at the instance map
-factory.AddFromEnv("some-instance-name", nil)
 ```
 
+This code will genarate a factory that able users to store many _*gorm.DB_ instances, always referencing them by an unique key. 
+
+The factory object has three ways to create or insert a _*gorm.DB_ instance and one to recovery it.
+
+To make an existent instance to the factory you just neet to call the __SetInstance__ function as showed below.
 
 ```go
-//create or get factory
-factory := database.GetFactory()
+db, err := database.FromEnv(nil) 
 
-//create new instance and store it at the instance map
-factory.AddNew("some-instance-name", "sqlite", "./database.db", nil)
-```
-
-```go
-//create or get factory
-factory := database.GetFactory()
-
-dbInstance, err := database.FromEnv(nil)
 if err == nil {
     log.Fatal("error message")
 }
 
-factory.SetInstance("some-instance-name", dbInstance)
+factory.SetInstance("instance-name", db)
 ```
+
+Beyond the __SetInstance__ function, the factory has two ways to crete and insert the instance in the factory map automatically.
+
+The function __AddNew__ create and store the _*gorm.DB_ instance to the factory map using the provided unique key. e.g:
+
+```go
+factory.AddNew(
+    "instance-name", 
+    database.SQLite, 
+    "./database.db", 
+    nil,
+)
+```
+
+Like __AddNew__, you can use the __AddFromEnv__ to create and add the _*gorm.DB_ instance to the factory map, but this time based on environment variables.
+
+
+```go
+factory.AddFromEnv("instance-name", nil)
+```
+
+:pencil2: __Note:__ _this function follow the same env vars of __NewFromEnv__ function._
+
+To obtains the _*gorm.DB_ instance from the factory map you can use the __GetInstance__ function like showed below.
 
 ```go
 //obtains the instance from factory map
 instance := factory.GetInstance("some-instance-name")
 ```
-
 
 ## Software Quality
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=posteris_database&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=posteris_database)
