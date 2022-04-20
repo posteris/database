@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650405510355,
+  "lastUpdate": 1650419836383,
   "repoUrl": "https://github.com/posteris/database",
   "entries": {
     "Benchmark": [
@@ -814,6 +814,60 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkConnection/MSSQL",
             "value": 0.005909,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "committer": {
+            "email": "gsdenys@gmail.com",
+            "name": "Denys G. Santos",
+            "username": "gsdenys"
+          },
+          "distinct": true,
+          "id": "9289a4bd295b9ae547cfd31f42950867145f082e",
+          "message": "remove unecessary files",
+          "timestamp": "2022-04-19T22:45:10-03:00",
+          "tree_id": "9eb6baae1d42d47ffce87c7491944faaf122d83b",
+          "url": "https://github.com/posteris/database/commit/9289a4bd295b9ae547cfd31f42950867145f082e"
+        },
+        "date": 1650419835426,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkConnection/PostgreSQL",
+            "value": 0.008136,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/SQLite",
+            "value": 0.0003014,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MySQL",
+            "value": 0.001153,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/Clickhouse",
+            "value": 0.003112,
+            "unit": "ns/op",
+            "extra": "1000000000 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkConnection/MSSQL",
+            "value": 0.005632,
             "unit": "ns/op",
             "extra": "1000000000 times\n2 procs"
           }
